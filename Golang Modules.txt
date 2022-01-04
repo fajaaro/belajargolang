@@ -1,0 +1,57 @@
+# Go Modules
+Management dependency pada Golang.
+Seperti composer pada php.
+
+# Membuat Module
+go mod init github.com/fajaaro/go-modules
+
+* my_module.go
+package go_modules
+
+func SayHello() string {
+	return "Hello!"
+}
+
+Push ke github.
+
+# Rilis Module
+git tag v1.0.0
+git push origin v1.0.0
+
+# Menambah Dependency Module
+go get nama-module
+
+# Menggunakan Module
+import (
+	"fmt"
+	go_say_hello "github.com/fajaaro/go-modules"
+)
+
+fmt.Println(go_say_hello.SayHello())
+
+# Upgrade Module
+git tag v1.5.0
+git push origin v1.5.0
+
+# Upgrade Dependency
+Ubah nomor tag dependency di go.mod
+Jalankan perintah go get
+
+# Major Upgrade
+Terjadi ketika ada perubahan yang merusak kode / membuat error kode pengguna dari dependency kita. Seperti ada penambahan parameter.
+
+Dengan cara mengubah nama module dan tag / versi naik drastis.
+
+- Pada source code module
+module github.com/fajaaro/go-say-hello menjadi 
+module github.com/fajaaro/go-say-hello/v2
+
+git add .
+git commit -m "major upgrade"
+git push origin master
+git tag v2.0.0
+git push origin v2.0.0
+
+- Pada source code yang menggunakan modul
+hapus require modul module github.com/fajaaro/go-say-hello di go.mod
+go get module github.com/fajaaro/go-say-hello/v2

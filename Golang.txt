@@ -1,0 +1,894 @@
+Go-Lang
+
+# Boilerplate
+
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello Fajar")
+}
+
+# Compile
+
+go build helloworld.go
+
+# Run
+
+go run helloworld.go
+
+# Tipe Data
+* Number
+1. Integer
+int8 (-128 - 127)
+int16 (-32768 - 32767)
+int32 / rune / int (-2147483648 - 2147483647) (miliar)
+int64 (-9223372036854775808 - 9223372036854775807)
+uint8 / byte (0 - 255)
+uint16 (0 - 65535)
+uint32 / uint (0 - 4294967295)
+uint64 (0 - 18446744073709551615)
+2. Floating Point
+float32
+float64
+complex64
+complex128
+
+* Boolean
+bool
+
+* String
+string
+"Fajar Hamdani"
+len("Fajar")
+"Fajar"[0] => akan mengembalikan ascii number
+
+* Array
+Ukuran array tidak bisa berubah.
+var namaVariabel [maxData]string
+Contoh:
+1. Deklarasi array
+var names [2]string
+names[0] = "Fajar"
+names[1] = "Dani"
+
+2. Deklarasi langsung dengan nilai
+var values = [3]int{10, 20, 30}
+
+3. Deklarasi tanpa menulis maxData 
+var values = [...]int{10, 20, 30}
+
+3. Mendapatkan total data array
+len(array)
+
+* Slice
+Ukuran slice bisa berubah.
+Saat mengubah data di array, maka data di slice akan berubah. Karena slice referensi langsung dari array.
+
+Punya 3 tipe data yaitu pointer, length & capacity.
+Pointer: penunjuk data pertama di array setiap slice
+Length: total data yang dimiliki slice
+Capacity: total data yang bisa ditampung slice
+
+array[low:high] => mengambil data dari index low sampai index sebelum high
+array[low:] => mengambil data dari index low sampai akhir
+array[:high] => mengambil data dari index 0 sampai index sebelum high
+array[:] => mengambil seluruh data pada array
+
+Contoh:
+var stringArray = [6]{"Januari", "Februari", "Maret", "April", "Mei", "Juni"}
+stringArray[1:5] akan menghasilkan slice dengan:
+pointer = 1
+length = 4
+capacity = 5
+
+Deklarasi slice
+slice := []int{10, 20, 30, 40}
+
+Function:
+- len(slice) => mendapatkan length
+- cap(slice) => mendapatkan capacity
+- append(slice, value) => jika capacity tidak sanggup menampung, maka akan membuat array baru
+- make([]tipeData, length, capacity)
+- copy(sliceTujuan, sliceAsal)
+
+* Map (key & value)
+Key harus unik
+namaVariabel := map[tipeDataKey]tipeDataValue{}
+Contoh:
+1. Deklarasi & Akses
+person := map[string]string{
+	"name": "Fajar",
+	"address": "Jakarta",
+}
+person["job"] = "Programmer"
+
+person["name"]
+
+var people map[string]string = nil
+
+Function:
+- len(map) => mendapatkan jumlah data 
+- map[key] => mengambil data di map
+- map[key] = value => mengubah data di map
+- make(map[tipeDataKey]tipeDataValue) => membuat map
+- delete(map, key) => menghapus data di map
+
+# Variabel
+var namaVariabel tipeData
+Contoh: 
+1. Deklarasi variabel
+var name string
+name = "Fajar Hamdani"
+
+2. Deklarasi variabel tanpa menuliskan tipedata
+var nickname = "fajaaro"
+
+3. Menghapus deklarasi var
+hobby := "Sports"
+hobby = "Watch Movie"
+
+4. Deklarasi lebih dari satu variabel
+var (
+	fName = "Fajar"
+	lName string = "Hamdani"
+)
+
+5. Constant variabel
+const fName = "Fajar"
+const lName string = "Hamdani"'
+
+const (
+	age = 20
+	ig = "fajaaro"
+)
+
+# Konversi Tipe Data
+var nilai32 int32 = 32768
+var nilai64 int64 = int64(nilai32)
+
+var name = "Fajar"
+var firstChar byte = name[0]
+var firstCharString = string(firstChar)
+
+# Type Declarations (Aliasing Tipe Data)
+type NoKTP string
+
+var ktpFajar NoKTP = "12345678"
+
+# Operasi Matematika
++
+-
+*
+/
+%
+
++=
+-=
+*=
+/=
+%=
+
+++
+--
+
+# Operasi Perbandingan
+>
+<
+>=
+<=
+==
+!=
+
+# Operasi Boolean
+&&
+||
+!
+
+# Conditional
+Contoh:
+1. If Else If Else
+if true {} 
+else if true {} 
+else {}
+
+2. If Short Statement
+if length := len("Fajar"); length > 5 {}
+else {}
+
+3. Switch
+name := "Fajar"
+
+switch name {
+case "Fajar":
+	fmt.Println()
+case "Dani":
+	fmt.Println()
+default:
+	fmt.Println()
+}
+
+4. Switch Short Statement
+switch length := len(name); length > 5 {
+case true:
+
+case false:
+}
+
+5. Switch Tanpa Variabel Kondisi
+length := len(name)
+switch {
+case length > 10:
+	
+case length > 5:
+
+default:
+}
+
+# For Loops
+Contoh:
+1. Loop
+i := 1
+for i <= 10 {
+	fmt.Println();
+	i++
+}
+
+2. For dengan statement
+Init: statement sebelum for dieksekusi
+Post: statement yang selalu dieksekusi di akhir tiap perulangan
+for init; kondisi; post {}
+for i := 1; i <= 10; i++ {}
+
+3. For Range
+names := []string{"Fajar", "Hamdani", "Dani"}
+for index, name := range names {
+	fmt.Println(index, name)
+}
+for _, name := range names {
+	fmt.Println(name)
+}
+
+person := make(map[string][string])
+person["name"] = "Fajar"
+person["job"] = "Programmer"
+for key, value := range person {
+	fmt.Println(key, value)
+}
+
+# Function
+Contoh:
+1. Normal Function
+func sayHello() {
+	fmt.Println("Hello Fajar")
+}
+
+2. With Parameters
+func sayHelloTo(fName string, lName string, age int) {
+	fms.Println(fName, lName, age)
+}
+
+func sayHelloTo(fName, lName string) {
+	fms.Println(fName, lName)
+}
+
+3. Return
+func getAge() int {
+	return 20
+}
+
+4. Multiple Return
+func getFullName() (string, string) {
+	return "Fajar", "Hamdani"
+}
+fName, lName := getFullName()
+fName, _ := getFullName()
+
+5. Return Named Value
+func getFullName() (fName string, mName string, lName string) {
+	fName = "Fajar"
+	mName = "Ham"
+	lName = "Dani"
+
+	return
+}
+
+6. Variadic
+Parameter terakhir bisa menerima lebih dari satu input, seperti array.
+func sumAll(numbers ...int) int {
+	total := 0
+	for _, num := range numbers {
+		total += num
+	}
+
+	return total
+}
+sumAll(1, 2, 3, 4, 5)
+
+numbers := []int{2, 4, 6, 8, 10, 50}
+sumAll(numbers...)
+
+7. Function Value
+func getGoodBye(name string) string {
+	return "Good bye " + name
+}
+goodbye := getGoodBye
+fmt.Println(goodbye("Fajar"))
+
+8. Function as Parameter
+func sayHelloWithFilter(name string, filter func(string) string) {
+	fmt.Println("Hello", filter(name))
+}
+func spamFilter(name string) string {
+	if name == "Anjing" return "..."
+	else return name
+}
+
+9. Type Declarations
+type Filter func(string) string
+
+10. Anonymous Function (Function Tanpa Nama)
+isBlackList := func(name string) bool {
+	return name == "Anjing"
+}
+
+11. Recursive
+func factorial(value int) int {
+	if value == 1 return 1
+	else return value * factorial(value - 1)
+}
+
+12. Defer function
+Function yang bisa kita jadwalkan untuk dieksekusi setelah sebuah function selesai dieksekusi, bahkan ketika ada error sekalipun.
+func logging() {
+	fmt.Println("Selesai memanggil function")
+}
+
+func runApp() {
+	defer logging()
+	fmt.Println("Run app")
+}
+
+13. Panic function
+Untuk menghentikan program. Biasa dipanggil ketika terjadi runtime error. Saat panic function dipanggil, program akan berhenti namun defer function tetap dieksekusi. 
+func endApp() {
+	fmt.Println("Aplikasi selesai")
+}
+
+func runApp(error bool) {
+	defer endApp()
+	if error {
+		panic("APP ERROR")
+	}
+	fmt.Println("App berjalan")
+}
+
+14. Recover function
+Untuk menangkap data panic. Dengan recover proses panic akan terhenti dan program terus berjalan.
+func endApp() {
+	message := recover()
+	if message != nil {
+		fmt.Println("Error message:", message)
+	}
+
+	fmt.Println("Aplikasi selesai")
+}
+
+func runApp(error bool) {
+	defer endApp()
+	if error {
+		panic("APP ERROR")
+	}
+	fmt.Println("App berjalan")
+}
+
+# Komentar
+// Single line
+/**
+Multi 
+line
+*/
+
+# Struct
+type Person struct {
+	name string
+	age int
+}
+type Person struct {name string; age int; hobbies []string}
+type Car struct {
+	name, color string
+	price int
+}
+
+var p1 = Person{}
+p1.name = "Fajar"
+p1.age = 20
+
+var p2 = Person{"Fajar", 20}
+var p3 = Person{name: "Fajar"}
+p4 := Person{"Fajar", 20}
+
+var p5 Person
+p5.name = "Fajar"
+p5.age = 20
+
+# Struct Tag Property
+type Person struct {
+	name string `tag1`
+	age int `tag2`
+}
+
+# Struct Type Alias
+type People = Person
+
+# Embedded Struct
+type Person struct {
+	name string
+	age int
+	type string
+}
+
+type Student struct {
+	Person
+	grade int
+	type string
+}
+
+var s1 = Student{}
+s1.name = "Fajar"
+s1.age = 20
+s1.Person.type = "Asian"
+s1.grade = 4
+s1.type = "S1"
+
+var s2 = Student{}
+s1.Person.name = "Fajar"
+s1.Person.age = 20
+s1.Person.type = "Asian"
+s1.grade = 4
+s1.type = "S1"
+
+var p1 = Person{name: "Fajar", age: 20}
+var s3 = Student{Person: p1, grade: 4}
+
+# Anonymous Struct
+var s1 = struct {
+	Person
+	grade int
+}{}
+s1.Person = Person{name: "Fajar", age: 20}
+s1.grade = 4
+
+var s2 = struct {
+	Person
+	grade int
+}{
+	Person: Person{name: "Fajar", age: 20}
+	grade: 4
+}
+
+# Struct Method
+func (person Person) sayHello() {
+	fmt.Println("Hello", person.name)
+}
+fajar := Person{"Fajar Hamdani", 20}
+fajar.sayHello()
+
+# Struct Pointer
+var p2 = Person{"Fajar", 20}
+var p3 *Person = &p2
+p3 := &p2
+Variabel p3 mengambil referensi dari p2. Jadi value dari p3 sama dengan p2 dan ketika nilai dari p3 diganti maka p2 juga akan ikut terganti.
+
+# Interface
+Tipe data abstract.
+Berisi definisi-definisi method.
+
+type HasName interface {
+	getName() string
+}
+
+func sayHello(hasName HasName) {
+	fmt.Println(hasName.getName())
+}
+
+type Person struct {
+	name string
+	age int
+}
+
+func (person Person) getName() string {
+	return person.name
+}
+
+person := Person{"Fajar", 20}
+sayHello(person)
+
+Struct Person otomatis menjadi implementasi dari HasName karena memiliki method yang dibutuhkan. Sehingga Person bisa dimasukkan sebagai parameter pertama dari method sayHello.
+
+# Interface Kosong
+Tidak memiliki deklarasi method satupun.
+Membuat semua tipe data akan menjadi implementasinya.
+func ups(num int) interface{} {
+	if num == 1 {
+		return 1
+ 	} else if num == 2 {
+ 		return false
+ 	} else {
+		return "Ups..."
+ 	}
+}
+var data interface{} = ups(1)
+data2 := ups(2)
+
+# Error Interface
+import (
+	"errors"
+	"fmt"
+)
+
+func pembagian(nilai int, pembagi int) (int, error) {
+	if pembagi == 0 {
+		return 0, errors.New("Error pembagian nol")
+	} else {
+		return nilai / pembagi, nil
+	}
+}
+
+hasil, error := pembagian(10, 0)
+if error != nil {
+	
+} else {
+	fmt.Println(error.Error())
+}
+
+# Nil
+Nil adalah data kosong
+Setiap buat variabel, maka secara otomatis akan dibuatkan default valuenya.
+Nil hanya bisa digunakan di interface, function, map, slice, pointer dan channel.
+
+func newMap(name string) map[string]string {
+	if name == "" {
+		return nil
+	} else {
+		return map[string]string {
+			"name": name
+		}
+	}
+}
+
+# Hak Akses / Access Modifier
+Exported / public: data-datanya bisa diakses darimanapun. Penamaannya diawali dengan huruf kapital.
+Unexported / private: data-datanya hanya bisa diakses dalam package yang sama. Penamaannya diawali dengan huruf kecil.
+
+* belajar/library/lib1.go
+package library
+import "fmt"
+
+type Student struct {
+	Name string
+}
+
+func ExportedMethod() {
+	fmt.Println("This is Exported method...")
+	UnexportedMethod()
+}
+func UnexportedMethod() {
+	fmt.Println("This is Unexported method...")
+}
+
+* belajar/main.go
+package main
+import (
+	"fmt"
+	"belajar/library"
+)
+func main() {
+	library.ExportedMethod()
+	s1 := library.Student{"Fajar"}
+	fmt.Println(s1.Name)
+}
+
+package main
+import (
+	f "fmt"
+	. "belajar/library"
+)
+func main() {
+	ExportedMethod()
+	s1 := Student{"Fajar"}
+	f.Println(s1.Name)
+}
+
+# Init Function
+Function yang dipanggil pertama kali ketika file dijalankan. Seperti constructor.
+func main() {
+	
+}
+
+func init() {
+	
+}
+
+# Type Assertions
+Merubah tipe data.
+
+func random() iinterface{} {
+	return "OK"
+}
+
+result := random()
+resultStr := result.(string)
+
+result2 := random()
+switch value := result.(type) {
+	case string:
+	case int:
+	default:
+}
+
+# Pointer
+numberA := 4
+
+* Pass by Value
+numberB := numberA
+
+* Referensi ke numberA dengan menyimpan alamat variabel numberA (Pass by Reference)
+numberB := &numberA
+var numberB *int = &numberA 
+
+* Print alamat dari numberA
+fmt.Println(numberB)
+
+* Print nilai dari referensi dengan cara dereference
+fmt.Println(*numberB)
+
+* Pointer di Function
+func change(original *int, value int) {
+	*original = value
+}
+
+func main() {
+	number := 4
+	change(&number, 10)
+}
+
+* Buat pointer kosong
+person := new(Person)
+
+* Pointer di Method
+type Man struct {
+	Name string
+}
+
+func (man *Man) Married() {
+	man.Name = "Mr. " + man.Name
+}
+
+# GoPath
+Wajib dibuat ketika membuat aplikasi lebih dari satu file atau butuh menggunakan library dari luar.
+
+# Package
+Secara default, file Golang hanya bisa mengakses file Golang lainnya yang berada dalam package / folder yang sama. 
+Jika ingin mengakses yang berada di luar package, maka harus import terlebih dahulu.
+
+* Blank identifier (Package belum digunakan)
+import _ "belajar/helper"
+
+* Import keseluruhan data (variabel, method, dll) dalam package
+import . "belajar/helper"
+Ketika ingin mengakses data yang ada pada package helper, tidak perlu lagi menggunakan "helper.NamaFunction()".
+
+# Package os
+Dokumentasi: golang.org/pkg/os
+
+import "os"
+
+* Mendapatkan argumen
+args := os.Args
+args[0] // lokasi file
+args[1] 
+args[2]
+args[3]
+
+go run main.go fajar hamdani
+args[1] // fajar
+args[2] // hamdani
+
+* Mendapatkan hostname
+name, err = os.Hostname()
+if err == nil {
+	fmt.Println(name)
+} else {
+	fmt.Println(err.Error())
+}
+
+* Mendapatkan data dari env
+os.Getenv("key")
+
+# Package flag
+import "flag"
+
+var varname1 *string = flag.String("varname1", "default value", "Put your varname1")
+varname2 := flag.String("varname2", "default value", "Put your varname2")
+varname3 := flag.Int("varname3", 0, "Put your varname3")
+
+flag.Parse()
+
+fmt.Println(*varname1, *varname2)
+
+go run main.go -varname1=Fajar -varname2=Hamdani
+
+# Package strings
+import "strings"
+
+str := strings.Trim("    Fajar   H", " ") // Fajar   H
+isExists := strings.Contains("Fajar Hamdani", "Hamdani") // true
+isPrefix := strings.HasPrefix("Fajar", "Fa") // true
+isSuffix := strings.HasSuffix("Fajar", "ar") // true
+howMany := strings.Count("Fajar", "a") // 2
+index := strings.Index("Fajar Hamdani", "Ha") // 6
+newText := strings.Replace("Fajar", "a", "o", 1) // Fojar
+newText := strings.Replace("Fajar", "a", "o", 2) // Fojor
+newText := strings.Replace("Fajar Ha", "a", "o", -1) // Fojor Ho
+newText := strings.ReplaceAll("Fajar Ha", "a", "o") // Fojor Ho
+str := strings.Repeat("na", 3) // nanana
+string1 := strings.Split("Fajar Hamdani", " ") // slice string: ["Fajar", "Hamdani"]
+string2 := strings.Split("Jar", "") // slice string: ["J", "a", "r"]
+str := strings.Join([]string{"Fajar", "Hamdani"}, " ") // Fajar Hamdani
+str := strings.ToLower("FAJAR") // fajar
+str := strings.ToUpper("fajar") // FAJAR
+
+# Package strconv
+import "strconv"
+
+* String ke integer
+num, err := strconv.Atoi("123")
+
+* Integer ke string
+str := strconv.Itoa(123)
+
+* String ke bool
+varBool, err := strconv.ParseBool("true")
+
+* Bool ke string
+str := strconv.FormatBool(true)
+
+# Package math
+import "math"
+
+math.Round(float64) // Membulatkan ke yang paling dekat
+math.Floor(float64) // Membulatkan ke atas
+math.Ceil(float64) // Membulatkan ke bawah
+math.Max(float64, float64) // Mengembalikan nilai float64 terbesar
+math.Min(float64, float64) // Mengembalikan nilai float64 terkecil
+
+# Package container/list
+Implementasi struktur data double linked list.
+
+Dokumentasi: golang.org/pkg/container/list
+
+import "container/list"
+
+data := list.New()
+data.PushBack("Fajar")
+data.PushBack("Hamdani")
+data.PushFront("Mr")
+
+data.Front().value
+data.Back().value
+data.Front().Next().value
+data.Front().Next().Next().value
+data.Front().Prev().value
+data.Front().Prev().Prev().value
+
+for e := data.Front(); e != nil; e = e.Next() {
+	fmt.Println(e.Value)
+}
+
+for e := data.Back(); e != nil; e = e.Prev() {
+	fmt.Println(e.Value)
+}
+
+# Package container/ring
+Implementasi circular list / ring.
+
+import "container/ring"
+
+jumlahData := 5
+data := ring.New(jumlahData)
+var data *ring.Ring = ring.New(jumlahData)
+for i := 0; i < data.Len(); i++ {
+	data.Value = "Value " + strconv.FormatInt(int64(i), 10)
+	data = data.Next()
+}
+
+data.Do(func(value interface{}) {
+	fmt.Println(value)
+})
+
+# Package sort
+import "sort"
+
+type User struct {
+	name string
+	age int
+}
+
+type UserSlice []User
+
+func (val UserSlice) Len() int {
+	return len(val)
+}
+
+func (val UserSlice) Less(i, j int) bool {
+	return val[i].age < val[j].age
+}
+
+func (val UserSlice) Swap(i, j int) {
+	val[i], val[j] = val[j], val[i]
+}
+
+users := []User {
+	{"Fajar", 20}
+	{"Dani", 25}
+	{"Dono", 15}
+	{"Dodol", 23}
+}
+
+sort.Sort(UserSlice(users))
+
+# Package time
+import "time"
+
+now := time.Now()
+now.Local()
+now.Year()
+now.Month()
+now.Day()
+now.Hour()
+now.Minute()
+now.Second()
+now.Nanosecond()
+
+time.Date(year, month, day, hour, min, sec, nsec, loc)
+utc := time.Date(2021, time.December, 9, 6, 39, 59, 10, time.UTC)
+
+time.Parse(layout, "date")
+parse, _ := time.Parse("2021-01-02", "1990-03-20")
+
+# Package reflect
+import "reflect"
+
+Contoh 1:
+type User struct {
+	name string `required:"true" max:"10"`
+}
+
+varType := reflect.TypeOf(User{"Fajar"})
+
+varType.NumField()
+
+varField := varType.Field(0)
+varField.name
+  
+isRequired := varField.Tag.Get("required")
+
+Contoh 2:
+func IsValid(data interface{}) bool {
+	t := reflect.TypeOf(data)
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+
+		if field.Tag.Get("required") == "true" {
+			value := reflect.ValueOf(data).Field(i).Interface()
+
+			if value == "" {
+				return false
+			}
+		}
+	}
+
+	return true
+}

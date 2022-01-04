@@ -1,0 +1,144 @@
+Golang Unit Test
+
+# Introduction to Software Testing
+- Unit Testing
+Paling mudah dan biasa dibikin paling banyak dan paling cepat. Test langsung ke scope terkecil. Biasanya menguji method. Ketika membuat unit test, harus bikin semua skenario.
+- Service Testing
+Test langsung ke Backend.
+- UI Testing / End to End Testing
+Semua sistem harus dijalankan (Frontend, Backend, Database). Jadinya semakin lambat. Tetapi semakin real, karena sesuai dengan behavior user asli.
+
+# Testing Package
+https://golang.org/pkg/testing
+testing.T // struct, digunakan untuk unit test
+testing.M // struct, untuk mengatur life cycle testing
+testing.B // struct, untuk benchmarking (mengukur kecepatan kode program)
+
+# Unit Test
+File unit test harus berakhiran _test.go dalam package yang sama.
+
+Nama function unit test harus diawali dengan nama Test. 
+
+Harus memiliki parameter (t *testing.T) dan tidak mengembalikan return value.
+
+Untuk menjalankan unit test bisa dengan menggunakan perintah berikut pada package dari file testing:
+- go test
+- go test -v
+Untuk lihat lebih detail function test yang sudah dijalankan.
+- go test -v -run TestNamaFunction
+Spesifik test ke function dengan prefix nama function tertentu
+- go test ./...
+Menjalankan seluruh unit test dari top folder.
+
+Menggagalkan unit test bisa dengan function 
+Fail() : Akan menggagalkan unit test, namun tetap melanjutkan eksekusi unit test ke baris berikutnya. 
+FailNow() : Akan menggagalkan unit test saat itu juga, tanpa melanjutkan eksekusi unit test.
+Error() : Melakukan log (print) error dan secara otomatis memanggil Fail(). 
+Fatal() : Melakukan log (print) error dan secara otomatis memanggil FailNow(). 
+
+- hello_world.go
+package helper
+
+func HelloWorld(name string) string {
+	return "Hello " + name
+}
+
+- hello_world_test.go
+package helper
+
+import "testing"
+
+func TestHelloWorld(t *testing.T) {
+	result := HelloWorld("Fajar")
+
+	if result != "Hello Fajar" {
+		t.Fail()
+		// t.Error("Result must be "Hello Fajar")
+	}
+}
+
+
+# Assertion
+https://github.com/stretchr/testify
+
+Pengganti if else.
+
+go get github.com/stretchr/testify
+
+assert : jika pengecekan gagal, akan memanggil Fail()
+require : jika pengecekan gagal, akan memanggil FailNow()
+
+assert.Equal(t, expectedValue, resultTesting, errorMessage)
+assert.NotEqual(t, expectedValue, resultTesting, errorMessage)
+assert.Nil(t, object)
+assert.NotNil(t, object)
+
+func TestHelloWorld(t *testing.T) {
+	result := HelloWorld("Fajar")
+	
+	assert.Equal(t, "Hello Fajar", result)
+
+	fmt.Println("TestHelloWorld DONE")
+}	
+
+# Membatalkan Unit Test
+Skip()
+
+if runtime.GOOS == "windows" {
+	t.Skip("Unit test tidak dijalankan di Windows")
+}
+
+# testing.M
+Nama function harus TestMain()
+
+Hanya dieksekusi sekali setiap package dari Golang.
+
+func TestMain(m *testing.M) {
+	fmt.Println("Sebelum unit test")
+
+	m.Run() // eksekusi semua unit test
+
+	fmt.Println("Sesudah unit test")
+}
+
+# Sub Test
+func TestSubTest(t *testing.T) {
+	t.Run("Fajar", func(t *testing.T) {
+		result := HelloWorld("Fajar")
+		require.Equal(t, "Hello Fajar", result)
+	})
+
+	t.Run("Dani", func(t *testing.T) {
+		result := HelloWorld("Dani")
+		require.Equal(t, "Hello Dani", result)
+	})
+}
+
+- go test -v -run TestNamaFunction
+- go test -v -run TestNamaFunction/NamaSubTest
+- go test -v -run /NamaSubTest
+
+# Table Test
+func TestHelloWorldTable(t *testing.T) {
+	tests := []struct {
+		name string
+		request string
+		expected string
+	}{
+		{"HelloWorld(Fajar)", "Fajar", "Hello Fajar"},
+		{"HelloWorld(Fajar)", "Fajar", "Hello Fajar"},
+		{"HelloWorld(Fajar)", "Fajar", "Hello Fajar"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := HelloWorld(test.request)
+			assert.Equal(t, test.expected, result)
+		})
+	}
+}
+
+# Mock 
+Object yang kita program dengan ekspetasi tertentu.
+
+# Benchmark
